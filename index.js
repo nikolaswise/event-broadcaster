@@ -1,58 +1,75 @@
-
 // Set up the singular emitter
-var EE = require('tiny-emitter')
+var EE = require('tiny-emitter');
 
-var ee = new EE()
-var broadcaster = {
-  channels: [
-    {
-      channel: 'z',
-      description: 'Getting nothing but static, getting nothing but static / Static in my attic from Channel Z',
-      emits: 'Space Junk',
-      listeners: null
-    }
-  ]
-}
-
-function channelIsRegistered (channel) {
-  // return a boolean
-  return broadcaster.channels.includes(channel)
-}
-
-function tuneIn(channel) {
-  if (!channelIsRegistered(channel)) {
-    return new error(`That channel is not registered. Try one of the following: `, broadcaster.channels)
+class Broadcaster {
+  constructor () {
+    this.ee = new EE()
+    this.channels = [
+      {
+        name: 'z',
+        description: 'Getting nothing but static, getting nothing but static / Static in my attic from Channel Z',
+        emits: 'Space Junk',
+        listeners: []
+      }
+    ]
   }
-}
 
-export function register (channel, description, emits) {
-  if (!channelIsRegistered(channel)) {
-    broadcaster.channels.push({
-        channel: channel,
+  tuneInTo (name) {
+    var target = this.channelIsRegistered(name)
+    if (target) {
+      return target
+    } else {
+      return new Error(`That channel is not registered. Try one of the following: ${this.channels}`)
+    }
+  }
+
+  channelIsRegistered (name) {
+    var registration = this.channels.filter(function(channel) {
+      return channel.name == name
+    })
+    return registration.length == 1 ? registration[0] : false
+  }
+
+  register (name, description, emits) {
+    var registration = this.channelIsRegistered(name)
+    if (registration) {
+      return new Error(`Channel ${registration.name} is allready registered as ${registration.description}`)
+    } else {
+      this.channels.push({
+        name: name,
         description: description,
         emits: emits,
         listeners: []
+      })
+    }
+  }
+
+  remove (name) {
+    this.channels.forEach(function (channel, i){
+      if (channe.name == name) {
+        this.channels.splice(i, 1)
+      }
     })
-  } else {
-    new error(`Channel ${channel} is allready registered as > ${description}`)
+  }
+
+  listen (name, cb) {
+    var channel = this.tuneInTo(name)
+    if (channel.name == name) {
+      channel.listeners.push(cb)
+      this.ee.on(channel.name, cb)
+    } else {
+      return channel
+    }
+  }
+
+  broadcast (name, content) {
+    var channel = this.tuneInTo(name)
+    if (channel.name == name) {
+      this.ee.emit(channel.name, content)
+    } else {
+      return channel
+    }
   }
 }
 
-export function remove (channel) {
-  broadcaster.channels.pop(channel)
-}
-
-export function listen (channel, cb) {
-  tuneInTo(channel)
-  var _channel = broadcaster.channels.filter('channel' == channel)
-  _channel.listeners.push(cb)
-  ee.on(channel, cb)
-
-}
-
-export function broadcast (channel, content) {
-  tuneInTo(channel)
-  ee.emit(channel, content)
-}
-
-export function
+export default Broadcaster
