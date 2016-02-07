@@ -38,6 +38,10 @@ export function register (channel, description, emits) {
   }
 }
 
+export function remove (channel) {
+  broadcaster.channels.pop(channel)
+}
+
 export function listen (channel, cb) {
   tuneInTo(channel)
   var _channel = broadcaster.channels.filter('channel' == channel)
