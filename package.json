@@ -4,6 +4,8 @@
   "description": "A regulated event emitter build around TinyEmitter",
   "main": "index.js",
   "scripts": {
+    "predist": "mkdirp dist",
+    "dist": "rollup index.js > dist/index.js",
     "test": "test"
   },
   "keywords": [
@@ -15,5 +17,9 @@
   "license": "ISC",
   "dependencies": {
     "tiny-emitter": "^1.0.2"
+  },
+  "devDependencies": {
+    "mkdirp": "^0.5.1",
+    "rollup": "^0.25.3"
   }
 }
