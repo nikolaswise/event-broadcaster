@@ -1,0 +1,16 @@
+{
+  "name": "event-broadcaster",
+  "version": "1.0.0",
+  "description": "A regulated event emitter build around TinyEmitter",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "event",
+    "emitter",
+    "pubsub"
+  ],
+  "author": "Nikolas Wise",
+  "license": "ISC"
+}
