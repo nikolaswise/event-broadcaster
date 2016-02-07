@@ -12,5 +12,8 @@
     "pubsub"
   ],
   "author": "Nikolas Wise",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "tiny-emitter": "^1.0.2"
+  }
 }
