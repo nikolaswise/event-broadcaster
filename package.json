@@ -4,10 +4,8 @@
   "description": "A regulated event emitter build around TinyEmitter",
   "main": "index.js",
   "scripts": {
-    "predist": "npm run babel",
-    "dist": "rollup -f umd -n broadcaster dist/es5.js > dist/index.js",
-    "prebabel": "mkdirp dist",
-    "babel": "babel index.js -o dist/es5.js --presets='babel-preset-es2015'",
+    "predist": "mkdirp dist",
+    "dist": "babel index.js -o dist/index.js --presets='babel-preset-es2015'",
     "test": "test"
   },
   "keywords": [
@@ -23,7 +21,6 @@
   "devDependencies": {
     "babel-cli": "^6.4.5",
     "babel-preset-es2015": "^6.3.13",
-    "mkdirp": "^0.5.1",
-    "rollup": "^0.25.3"
+    "mkdirp": "^0.5.1"
   }
 }
