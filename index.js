@@ -1,50 +1,46 @@
+function B () {}
+
 // Set up the singular emitter
 var EE = require('tiny-emitter');
 
-class Broadcaster {
-  constructor () {
-    this.ee = new EE()
-    this.channels = [
-      {
-        name: 'z',
-        description: 'Getting nothing but static, getting nothing but static / Static in my attic from Channel Z',
-        emits: 'Space Junk',
-        listeners: []
-      }
-    ]
-  }
-
-  tuneInTo (name) {
-    var target = this.channelIsRegistered(name)
-    if (target) {
-      return target
-    } else {
-      return new Error(`That channel is not registered. Try one of the following: ${this.channels}`)
+B.prototype = {
+  ee: new EE(),
+  channels: [
+    {
+      name: 'z',
+      description: 'Getting nothing but static, getting nothing but static / Static in my attic from Channel Z',
+      emits: 'Space Junk',
+      listeners: []
     }
-  }
+  ],
 
-  channelIsRegistered (name) {
-    var registration = this.channels.filter(function(channel) {
+  tuneInTo: function (name) {
+    var channel = channelIsRegistered(name)
+    if (channel) {
+      return channel
+    } else {
+      return new Error(`That channel is not registered. Try one of the following: ${channels}`)
+    }
+  },
+
+  channelIsRegistered: function (name) {
+    var registration = channels.filter(function(channel) {
       return channel.name == name
     })
     return registration.length == 1 ? registration[0] : false
-  }
+  },
 
-  register (name, description, emits) {
-    var registration = this.channelIsRegistered(name)
+  register: function (channel) {
+    var registration = channelIsRegistered(channel.name)
     if (registration) {
       return new Error(`Channel ${registration.name} is allready registered as ${registration.description}`)
     } else {
-      this.channels.push({
-        name: name,
-        description: description,
-        emits: emits,
-        listeners: []
-      })
+      channel.listeners = []
+      channels.push(channel)
     }
-  }
+  },
 
-  remove (name) {
+  remove: function (name) {
     this.channels.forEach(function (channel, i){
       if (channe.name == name) {
         this.channels.splice(i, 1)
@@ -52,7 +48,7 @@ class Broadcaster {
     })
   }
 
-  listen (name, cb) {
+  listen: function (name, cb) {
     var channel = this.tuneInTo(name)
     if (channel.name == name) {
       channel.listeners.push(cb)
@@ -60,9 +56,9 @@ class Broadcaster {
     } else {
       return channel
     }
-  }
+  },
 
-  broadcast (name, content) {
+  broadcast: function (name, content) {
     var channel = this.tuneInTo(name)
     if (channel.name == name) {
       this.ee.emit(channel.name, content)
@@ -72,4 +68,4 @@ class Broadcaster {
   }
 }
 
-export default Broadcaster
+module.exports = B

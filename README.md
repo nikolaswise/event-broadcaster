@@ -9,3 +9,11 @@ When emitting on a channel, the broadcaster checks to see if that channel exists
 When listening to a channel, the broadcaster checks to see if that channel exists - if it doesn't, it returns a helpful list of what channels do exist.
 
 Removing a channel pulls it from the registry, and future listeners will get an error when they try to tune in to the channel.
+
+
+## Methods
+
+register
+remove
+listen
+broadcast
