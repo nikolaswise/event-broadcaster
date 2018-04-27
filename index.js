@@ -20,6 +20,9 @@ const register = object => {
 
 const on = (channel, cb) => {
   if (check(channel)) {
+    if (channels[channel].listeners.includes(cb)) {
+      return false
+    }
     channels[channel].listeners.push(cb)
     return true
   } else {
