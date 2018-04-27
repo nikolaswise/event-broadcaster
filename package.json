@@ -6,7 +6,7 @@
   "scripts": {
     "predist": "mkdirp dist",
     "dist": "babel index.js -o dist/index.js --presets='babel-preset-es2015'",
-    "test": "test"
+    "test": "tape tests/**/*.js | tap-spec"
   },
   "keywords": [
     "event",
@@ -21,6 +21,9 @@
   "devDependencies": {
     "babel-cli": "^6.4.5",
     "babel-preset-es2015": "^6.3.13",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "standard": "^11.0.1",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.9.0"
   }
 }
